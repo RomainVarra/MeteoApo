@@ -12,6 +12,7 @@
 	"dependencies": {
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
+		"react-gauge-component": "^1.2.62",
 		"react-router-dom": "^7.0.2",
 		"react-slot-counter": "^3.0.1"
 	},
