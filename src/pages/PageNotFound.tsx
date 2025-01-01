@@ -1,6 +1,6 @@
 import "./PageNotFound.css";
 
-export default function NotFound() {
+function PageNotFound() {
 	const handleReturnHome = () => {
 		window.location.href = "/";
 	};
@@ -8,7 +8,7 @@ export default function NotFound() {
 	return (
 		<div className="video">
 			<video className="video-espace" autoPlay muted loop>
-				<source src="/public/images/espace2.mp4" type="video/mp4" />
+				<source src="/images/espace2.mp4" type="video/mp4" />
 			</video>
 
 			<div className="container-not-found">
@@ -27,3 +27,5 @@ export default function NotFound() {
 		</div>
 	);
 }
+
+export default PageNotFound;

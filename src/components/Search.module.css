@@ -1,3 +1,141 @@
 .searchContainer {
 	margin: 0;
 }
+
+.searchContainer {
+	background-color: rgba(188, 191, 165, 0.902);
+}
+
+.searchBar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3em;
+	padding: 6em;
+}
+
+.searchTitle {
+	font-size: 1.6em;
+}
+
+.form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 70%;
+	height: 5em;
+	gap: 0.8em;
+}
+
+.inputSearchBar {
+	border-radius: 1.5em;
+	width: 50%;
+	height: 3em;
+	text-align: center;
+}
+
+.submit {
+	border-radius: 1.5em;
+	width: 5em;
+	height: 3em;
+}
+
+.searchResult {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.intro {
+	font-size: 1.2em;
+}
+
+.location {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1em;
+	font-size: 0, 9em;
+	border-radius: 2em;
+	margin-top: 1em;
+}
+
+.localtime {
+	font-size: 1, 2em;
+}
+
+.weatherIcon {
+	size: 10em;
+	border-radius: 3em;
+}
+
+.displayResult {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.luckToSurvive {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5em;
+	font-size: 1.2em;
+	border-radius: 2em;
+}
+
+.luckToSurvive p {
+	font-size: 1em;
+}
+
+.luckTitle {
+	margin-top: 2rem;
+}
+
+.compteur {
+	width: 80%;
+}
+
+.luckToDie {
+	display: flex;
+	flex-direction: row;
+	margin: 4em 0;
+	gap: 3em;
+}
+
+p {
+	font-size: 0.8em;
+	color: rgba(71, 15, 15, 0.927);
+}
+
+.radioactivity {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	background-color: rgba(165, 162, 162, 0.945);
+	font-size: 1.1em;
+	padding: 1.8em;
+	border-radius: 3em;
+}
+
+.risk {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
+	background-color: rgba(165, 162, 162, 0.945);
+	font-size: 1.1em;
+	padding: 1.6em;
+	border-radius: 3em;
+	justify-content: center;
+}
+
+@media screen and (min-width: 992px) {
+	.mobileMessage {
+		visibility: hidden;
+		text-align: center;
+		color: rgba(71, 15, 15, 0.927);
+	}
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SlotCounter from "react-slot-counter";
 import style from "./Search.module.css";
+import GaugeComponent from "react-gauge-component";
 
 type town = {
 	location: {
@@ -38,7 +39,7 @@ function Search() {
 
 	useEffect(() => {
 		fetch(
-			`https://api.weatherstack.com/current?access_key=d4ab7b648203365b64e4625dda298335&query=${search}`,
+			`https://api.weatherstack.com/current?access_key=549de1bff6a1786b4149ac4de19a04a8&query=${search}`,
 		)
 			.then((response) => response.json())
 			.then((data) => setData(data))
@@ -55,52 +56,164 @@ function Search() {
 		setIsSubmitted(true);
 	};
 
+	function survivalPercentChance(
+		wind_speed: number,
+		uv_index: number,
+		humidity: number,
+		feelslike: number,
+	): number | undefined {
+		const percentChance =
+			1000 / (wind_speed / 30 + uv_index / 20 + humidity / 20 + feelslike / 30);
+		return Number.parseFloat(percentChance.toFixed(1));
+	}
+	function survivalChance(
+		wind_speed: number,
+		pressure: number,
+		humidity: number,
+		feelslike: number,
+	) {
+		const mySurvivalChance = survivalPercentChance(
+			wind_speed,
+			pressure,
+			humidity,
+			feelslike,
+		);
+		if (mySurvivalChance !== undefined) {
+			if (mySurvivalChance <= 30) {
+				return "Chances de survies extrêmement faibles !";
+			}
+			if (mySurvivalChance <= 50) {
+				return "Risque important mais pas impossible ! S'armer en conséquence !";
+			}
+			return "Vous avez peut-être une chance ! ";
+		}
+	}
 	return (
 		<section className={style.searchContainer}>
-			<h1>Pouvez-vous sortir de chez vous ? </h1>
-			<form onSubmit={handleClick}>
-				<input
-					type="text"
-					name="searchBar"
-					placeholder="Entrez une ville"
-					onChange={handleChange}
-				/>
-				<input type="submit" />
-			</form>
+			<section className={style.mobileMessage}>
+				{" "}
+				<p>
+					Il n'y a plus de réseau dans le monde, donc inutile de faire une
+					version mobile
+				</p>
+			</section>{" "}
+			<section className={style.searchBar}>
+				<h2 className={style.searchTitle}>
+					Pouvez-vous sortir de chez vous ?{" "}
+				</h2>
+				<form onSubmit={handleClick} className={style.form}>
+					<input
+						type="text"
+						name="searchBar"
+						placeholder="Entrez une ville"
+						onChange={handleChange}
+						className={style.inputSearchBar}
+					/>
+					<input type="submit" className={style.submit} />
+				</form>
+			</section>
 			{isSubmitted && data && data.current && data.location && (
 				<section className={style.searchResult}>
 					<section className={style.intro}>
-						<h2>Tu te demandes si tu peux survivre à {search} ?</h2>
+						<h2>
+							Tu te demandes si tu peux survivre à {search} (
+							{data?.location.country}) ?
+						</h2>
 					</section>
-					<section className={style.alert}>
-						<img src={`${data?.current.weather_icons}`} alt="icone météo" />
-					</section>
+
 					<section className={style.location}>
-						<h3>{data?.location.country}</h3>
 						<p>{data?.location.localtime}</p>
 					</section>
-					<section className={style.weather}>
-						<p>La température est de {data?.current.temperature} °C</p>
-						<img src="images/radioactificone.jpg" alt="icône radioactive" />
-						<p>
-							Le vent radioactif souffle à{" "}
-							<SlotCounter value={`${data?.current.wind_speed}`} /> km/h
-						</p>
-						<p>La visibilité dans la zone est de {data?.current.visibility}</p>
-						<p>
-							Le risque de se faire carboniser par le rayonnement solaire est de{" "}
-							{data?.current.uv_index}%
-						</p>
+
+					<section className={style.displayResults}>
+						<section className={style.luckToSurvive}>
+							<p className={style.luckTitle}>
+								Pourcentage de chance de survie:{" "}
+							</p>
+							<GaugeComponent
+								arc={{
+									subArcs: [
+										{
+											limit: 20,
+											color: "#EA4228",
+											showTick: true,
+										},
+										{
+											limit: 40,
+											color: "#F58B19",
+											showTick: true,
+										},
+										{
+											limit: 60,
+											color: "#F5CD19",
+											showTick: true,
+										},
+										{
+											limit: 100,
+											color: "#12da3a",
+											showTick: true,
+										},
+									],
+								}}
+								value={survivalPercentChance(
+									data?.current.pressure,
+									data?.current.humidity,
+									data?.current.wind_speed,
+									data?.current.feelslike,
+								)}
+								className={style.compteur}
+							/>
+							<p>
+								Estimation de vos chances de survie :{" "}
+								{survivalChance(
+									data?.current.pressure,
+									data?.current.humidity,
+									data?.current.wind_speed,
+									data?.current.feelslike,
+								)}
+							</p>
+						</section>
 					</section>
-					<section className={style.risk}>
-						<p>
-							Nous avons détecté{" "}
-							<SlotCounter value={`${data?.current.pressure}`} /> zombies autour
-							de chez vous
-						</p>
-						<p>
-							Nous avons détecté {data?.current.humidity} mutants dans la zone
-						</p>
+					<section className={style.luckToDie}>
+						<section className={style.radioactivity}>
+							<p>
+								La température est de{" "}
+								<SlotCounter value={data?.current.temperature} /> °C
+							</p>
+							<p>
+								Un vent radioactif souffle à{" "}
+								<SlotCounter value={data?.current.wind_speed} /> km/h
+							</p>
+							{data?.current.wind_speed > 20 && (
+								<p>Prenez-votre combinaison anti-radiations !</p>
+							)}
+							<p>
+								La visibilité dans la zone est de{" "}
+								<SlotCounter value={data?.current.visibility} />
+							</p>
+							<p>
+								Le risque de se faire carboniser par le rayonnement solaire est
+								de {data?.current.uv_index}%
+							</p>
+							{data?.current.uv_index > 4 && (
+								<p>N'oubliez pas de mettre votre crème indice 5000 </p>
+							)}
+						</section>
+
+						<section className={style.risk}>
+							<p>
+								Nous avons détecté{" "}
+								<SlotCounter value={data?.current.pressure} /> zombies et{" "}
+								{data?.current.humidity} mutants autour de chez vous
+							</p>
+							{data?.current.pressure > 1000 && (
+								<p>N'oubliez pas votre hache 🪓</p>
+							)}
+
+							{data?.current.humidity > 60 && (
+								<p>Il serait peut-être judicieux de ne pas sortir ! </p>
+							)}
+						</section>
 					</section>
 				</section>
 			)}

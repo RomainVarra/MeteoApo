@@ -1,34 +1,35 @@
 .container-not-found {
 	position: absolute;
 	top: 0;
-	left: 35vh;
+	left: 0;
 	width: 100%;
 	height: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
 	align-items: center;
-	text-align: center;
-	padding: 35vh;
+	padding: 30vh 15px;
 	font-weight: bold;
 	color: rgb(255, 255, 255);
 }
 
-.video-espace-video {
+.video-espace {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+	object-fit: cover;
+	z-index: -1;
 }
 
 .titre-not-found {
 	font-size: 5vw;
-	color: white;
+	margin-bottom: 50px;
 }
 
 .message-not-found {
 	font-size: 3vw;
+	margin-bottom: 50px;
 }
 
 .boutton-not-found {
@@ -43,76 +44,4 @@
 
 .boutton-not-found:hover {
 	background-color: #0056b3;
-}
-
-.video-espace-video {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: auto;
-	height: auto;
-	object-fit: cover;
-	z-index: -1;
-}
-
-.message-not-found {
-	font-size: 10vw;
-	color: rgb(255, 255, 255);
-}
-
-.boutton-not-found {
-	font-size: 8vw;
-	color: white;
-	background-color: #007bff;
-	border: none;
-	padding: 12px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.boutton-not-found:hover {
-	background-color: #0056b3;
-}
-
-@media (max-width: 1920px) {
-	.container-not-found {
-		padding: 26vh 12px;
-
-		.titre-not-found {
-			font-size: 7vw;
-		}
-
-		.message-not-found {
-			font-size: 3.5vw;
-		}
-
-		.boutton-not-found {
-			font-size: 3vw;
-			padding: 8px 12px;
-		}
-	}
-}
-
-@media (max-width: 1080px) {
-	.container-not-found {
-		padding: 36vh 27vh;
-	}
-}
-
-@media (max-width: 768px) {
-	.container-not-found {
-		padding: 36vh 40vh;
-	}
-}
-
-@media (max-width: 480px) {
-	.container-not-found {
-		padding: 36vh 35vh;
-	}
-}
-
-@media (max-width: 360px) {
-	.container-not-found {
-		padding: 36vh 85vh;
-	}
 }
