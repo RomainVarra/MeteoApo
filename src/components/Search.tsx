@@ -38,7 +38,7 @@ function Search() {
 
 	useEffect(() => {
 		fetch(
-			`https://api.weatherstack.com/current?access_key=dbf96edcfda546a9bd75476eb713b8c6&query=${search}`,
+			`https://api.weatherstack.com/current?access_key=d4ab7b648203365b64e4625dda298335&query=${search}`,
 		)
 			.then((response) => response.json())
 			.then((data) => setData(data))
@@ -81,6 +81,7 @@ function Search() {
 					</section>
 					<section className={style.weather}>
 						<p>La température est de {data?.current.temperature} °C</p>
+						<img src="images/radioactificone.jpg" alt="icône radioactive" />
 						<p>
 							Le vent radioactif souffle à{" "}
 							<SlotCounter value={`${data?.current.wind_speed}`} /> km/h
